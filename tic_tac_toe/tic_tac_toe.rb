@@ -1,7 +1,7 @@
 class TicTacToe
 
   def initialize
-    @board = Array.new(9, "_")
+    @board = Array.new(9, " ")
   end
 
   WIN_COMBINATIONS = [
@@ -12,10 +12,18 @@ class TicTacToe
     [1,4,7], #second column
     [2,5,8], #third column
     [0,4,8], #top left - botom right diagonal
-    [2,4,6]] #top right - bottom left diagonal
+    [2,4,6]  #top right - bottom left diagonal
+  ] 
 
-
+  def display_board
+    puts "#{@board[0]} | #{@board[1]} | #{@board[2]}"
+    puts "----------"
+    puts "#{@board[3]} | #{@board[4]} | #{@board[5]}"
+    puts "----------"
+    puts "#{@board[6]} | #{@board[7]} | #{@board[8]}"
+  end
   
 end
 
 game = TicTacToe.new
+game.display_board
