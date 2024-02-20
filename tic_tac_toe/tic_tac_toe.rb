@@ -27,35 +27,80 @@ class TicTacToe
     input.to_i - 1
   end
 
-  def move(token, index)
+  def move(index, token)
     @board[index] = token
   end
 
   def position_taken?(index)
-    if @board[index] == nil
-      false
-    else
-      true
-    end
+    @board[index] != " "
   end
 
   def valid_move?(index)
-    if !position_taken?(index) && index.include?(0, 8)
-      true
-    else
-      false
-    end
+    (0..8).include?(index) && !position_taken?(index)
   end
 
   def turn_count
-    @board.compact.length
+    @board.count { |square| square != " " }
   end
 
   def current_player
     turn_count.even? ? "X" : "O"
   end
 
+  def turn
+    puts "Make a move choose from 1-9"
+    index = input_to_index(gets.chomp)
+
+    if valid_move?(index)
+      move(index, current_player)
+      display_board
+    else
+      puts "Enter a valid move"
+      turn
+    end
+  end
+
+  def won?
+    WIN_COMBINATIONS.any? do |combo|
+      if position_taken?(combo[0]) && @board[combo[0]] == @board[combo[1]] && @board[combo[1]] == @board[combo[2]]
+        return combo
+      end
+    end
+  end
+
+  def full?
+    @board.all?{|square| square != " "}
+  end
+
+  def draw?
+    full? && !won?
+  end
+
+  def over?
+    if won? || full?
+      return true
+    end
+  end
+
+  def winner
+    if winning_combo = won?
+      @board[winning_combo[0]]
+    end
+  end
+
+  def play
+    puts "Welcome to Tic tac toe!"
+    display_board
+    turn until over?
+
+    if won?
+      puts "Congratulations #{winner} won!"
+    else
+      puts "It's a draw!"
+    end
+
+  end
 end
 
 game = TicTacToe.new
-game.display_board
+game.play
