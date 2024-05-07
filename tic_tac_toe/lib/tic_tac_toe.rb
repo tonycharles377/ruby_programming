@@ -15,16 +15,29 @@ class TicTacToe
     [2,4,6]  #top right - bottom left diagonal
   ] 
 
+  # main game loop method
+  def play
+    puts "Welcome to the Tic Tac Toe Game!"
+    display_board
+    turn until over?
+
+    if won?
+      puts "Congratulations #{winner} won!"
+    else
+      puts "It's a draw!"
+    end
+
+  end
+
+  private
+
+  # Helper methods
   def display_board
     puts "#{@board[0]} | #{@board[1]} | #{@board[2]}"
     puts "----------"
     puts "#{@board[3]} | #{@board[4]} | #{@board[5]}"
     puts "----------"
     puts "#{@board[6]} | #{@board[7]} | #{@board[8]}"
-  end
-  
-  def input_to_index(input)
-    input.to_i - 1
   end
 
   def move(index, token)
@@ -88,17 +101,8 @@ class TicTacToe
     end
   end
 
-  def play
-    puts "Welcome to Tic tac toe!"
-    display_board
-    turn until over?
-
-    if won?
-      puts "Congratulations #{winner} won!"
-    else
-      puts "It's a draw!"
-    end
-
+  def input_to_index(input)
+    input.to_i - 1
   end
 end
 
