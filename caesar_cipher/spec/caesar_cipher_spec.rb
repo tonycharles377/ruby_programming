@@ -12,4 +12,8 @@ RSpec.describe "caesar_cipher" do
     it "Handles an empty string" do
         expect(caesar_cipher("", 10)).to eql("")
     end
+
+    it "Handles a negative right_shift value" do
+        expect(caesar_cipher("It is what it is!!", -20)).to eql("Oz oy cngz oz oy!!")
+    end
 end
