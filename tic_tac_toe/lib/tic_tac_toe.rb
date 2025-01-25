@@ -105,6 +105,3 @@ class TicTacToe
     input.to_i - 1
   end
 end
-
-game = TicTacToe.new
-game.play
